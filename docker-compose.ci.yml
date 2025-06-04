@@ -1,0 +1,44 @@
+version: '3.8'
+services:
+  post-db:
+    image: postgres
+    container_name: post-db
+    restart: always
+    environment:
+      POSTGRES_USER: postgres
+      POSTGRES_PASSWORD: postgres
+      POSTGRES_DB: post_service
+    ports:
+      - "5450:5432"
+    volumes:
+      - post-data:/var/lib/postgresql/data
+    networks:
+      - rede-compartilhada
+
+  post-service:
+    build: .
+    container_name: post-service
+    restart: always
+    depends_on:
+      - post-db
+    ports:
+      - "5050:5050"
+    volumes:
+      - .:/app
+      - ./data/imagens-postagens:/app/data/imagens-postagens
+    networks:
+      - rede-compartilhada
+    environment:
+      - NODE_ENV=test
+      - DB_HOST=user-db
+      - DB_PORT=5432
+      - DB_USER=postgres
+      - DB_PASS=postgres
+      - DB_NAME=post_service
+
+volumes:
+  post-data:
+
+networks:
+  rede-compartilhada:
+    driver: bridge

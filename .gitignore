@@ -6,6 +6,4 @@ build/
 tmp/
 temp/
 .env
-fotos-usuarios
-capas-postagens
-migrations
+imagens-postagens
