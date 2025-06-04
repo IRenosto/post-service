@@ -30,7 +30,7 @@ services:
       - rede-compartilhada
     environment:
       - NODE_ENV=test
-      - DB_HOST=user-db
+      - DB_HOST=post-db
       - DB_PORT=5432
       - DB_USER=postgres
       - DB_PASS=postgres
